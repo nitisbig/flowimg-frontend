@@ -6,11 +6,11 @@ import { useState } from "react";
 
 
 export default function App(){
-  const [prompt, setPrompt] = useState('')
+
   return(
-    <div>
-      <ImgWindow prompt={prompt}/>
-      <InputBox onSubmit={setPrompt} />
+    <div className="flex flex-col h-full">
+      <ImgWindow />
+      <InputBox />
     </div>
   )
 }

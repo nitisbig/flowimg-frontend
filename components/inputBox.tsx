@@ -2,17 +2,30 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
+import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import api from "@/lib/api";
+import { ArrowUp } from "lucide-react";
 
-interface InputBoxProps{
-    onSubmit: (value: string) => void
-}
 
-export default function InputBox({onSubmit}: InputBoxProps){
+
+export default function InputBox(){
+    const queryClient = useQueryClient()
+    const mutaion = useMutation({
+        mutationFn: async(prompt: string)=>{
+            const res = await api.post('/img',{prompt})
+            return res.data as string
+        },
+        onSuccess: (data)=>{
+            queryClient.setQueryData(['generated-image'], data)
+        }
+    })
     const [val, setVal] = useState<string>('')
+
+
     return(
-        <div className=" absolute top-1/2 right-1/2 transform translate-x-1/2 w-1/3">
-            <Textarea value={val} onChange={(e)=>setVal(e.target.value)} />
-            <Button onClick={()=>onSubmit(val)} variant={"default"}>Generate</Button>
+        <div className="flex justify-center mb-3 items-center">
+            <Textarea className="w-1/2 resize-none text-wrap field-sizing-content" value={val} onChange={(e)=>setVal(e.target.value)} />
+            <Button className=" rounded-full" size={"icon-lg"} disabled={mutaion.isPending ? true: false} onClick={()=>mutaion.mutate(val)} variant={"default"}><ArrowUp /></Button>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export function SiteHeader() {
   return (
-    <div className="flex justify-between w-full">
+    <div className="flex justify-between">
       <SidebarTrigger />
       <p>NanoImg</p>
       <Link href="#">Github</Link>
