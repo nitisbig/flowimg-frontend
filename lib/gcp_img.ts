@@ -1,40 +1,45 @@
-
-
-
 import { Storage } from '@google-cloud/storage';
 
-// Initialize storage
+const encodedKey = process.env.GCP_CREDENTIALS_BASE64;
+
+// Safety check: ensure the variable exists
+if (!encodedKey) {
+  throw new Error('GCP_CREDENTIALS_BASE64 environment variable is missing');
+}
+
+const credentials = JSON.parse(Buffer.from(encodedKey, 'base64').toString('utf-8'));
+
 const storage = new Storage({
-    keyFilename: "bucket_key.json"
+    projectId: credentials.project_id, // Good practice to include this explicitly
+    credentials: credentials // ✅ CORRECT: Use 'credentials', not 'keyFilename'
 });
 
 const bucketName = 'first_bucket_king';
 
 export async function getImages() {
   try {
-    // 1. Get files from the bucket
     const [files] = await storage.bucket(bucketName).getFiles({prefix: 'images/'});
 
-    // 2. Generate URLs for each file
     const imageUrls = await Promise.all(
       files.map(async (file) => {
-        // OPTION A: If bucket is PRIVATE, generate Signed URL (valid for 1 hour)
+        // Filter out the folder itself if it's returned as a file
+        if (file.name.endsWith('/')) return null; 
+
         const [signedUrl] = await file.getSignedUrl({
           action: 'read',
           expires: Date.now() + 1000 * 60 * 60, // 1 hour
         });
 
-        // OPTION B: If bucket is PUBLIC, use the public link directly:
-        // const publicUrl = `https://storage.googleapis.com/${bucketName}/${file.name}`;
-
         return {
           name: file.name,
-          url: signedUrl, // Switch to publicUrl if using Option B
+          url: signedUrl,
         };
       })
     );
 
-    return imageUrls;
+    // Remove any null entries (from the folder filter above)
+    return imageUrls.filter(img => img !== null);
+
   } catch (error) {
     console.error('Error fetching images:', error);
     return [];

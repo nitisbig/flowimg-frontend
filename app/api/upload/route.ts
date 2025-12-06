@@ -1,9 +1,16 @@
 import { NextResponse } from 'next/server';
 import { Storage } from '@google-cloud/storage';
+const encodedKey = process.env.GCP_CREDENTIALS_BASE64;
 
-// Initialize storage with environment variables
+if (!encodedKey) {
+  throw new Error('GCP_CREDENTIALS_BASE64 environment variable is missing');
+}
+
+
+const credentials = JSON.parse(Buffer.from(encodedKey, 'base64').toString('utf-8'));
 const storage = new Storage({
-    keyFilename: 'bucket_key.json'
+  projectId: credentials.project_id,
+    credentials: credentials
 });
 
 const bucketName = 'first_bucket_king';
