@@ -26,7 +26,7 @@ const items = [
   },
   {
     title: "API keys",
-    url: "#",
+    url: "api_key",
     icon: KeyIcon,
   },
   {
