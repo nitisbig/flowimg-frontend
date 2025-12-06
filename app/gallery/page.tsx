@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getImages } from "@/lib/gcp_img"
 import Image from "next/image"
 
