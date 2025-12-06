@@ -12,7 +12,7 @@ export default function InputBox(){
     const queryClient = useQueryClient()
     const mutaion = useMutation({
         mutationFn: async(prompt: string)=>{
-            const res = await api.post('/img',{prompt})
+            const res = await api.post('/img/',{prompt})
             return res.data as string
         },
         onSuccess: (data)=>{
