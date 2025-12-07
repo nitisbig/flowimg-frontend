@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
-// Helper function to convert Base64 to Blob
 const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
     const byteCharacters = atob(base64Data);
     const byteNumbers = new Array(byteCharacters.length);
@@ -16,12 +15,12 @@ const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
 }
 
 export default function ImgWindow() {
-    // Added saving state to show feedback to user
+
     const [isSaving, setIsSaving] = useState(false);
 
     const { data } = useQuery({
         queryKey: ['generated-image'],
-        queryFn: () => null, // Replace with your actual fetch logic
+        queryFn: () => null,
         enabled: false
     });
 
@@ -34,7 +33,7 @@ export default function ImgWindow() {
         }
 
         try {
-            // Using the helper function logic you wrote, wrapped in blob creation
+
             const blob = base64ToBlob(data);
             const url = URL.createObjectURL(blob);
             setImageUrl(url);
@@ -58,20 +57,16 @@ export default function ImgWindow() {
         document.body.removeChild(link);
     };
 
-    // --- NEW SAVE FUNCTION ---
     const handleSave = async () => {
         if (!data) return;
 
         setIsSaving(true);
         try {
-            // 1. Convert the base64 string back to a Blob
+
             const blob = base64ToBlob(data);
 
-            // 2. Prepare FormData to send to our API
             const formData = new FormData();
             formData.append('file', blob, 'image.png');
-
-            // 3. Send to our Next.js API route
             const response = await fetch('/api/upload', {
                 method: 'POST',
                 body: formData,
@@ -81,7 +76,7 @@ export default function ImgWindow() {
 
             const result = await response.json();
             console.log('Saved successfully:', result);
-            alert("Image saved to gallery!"); // Replace with a Toast notification if available
+            alert("Image saved to gallery!"); 
 
         } catch (error) {
             console.error('Error saving image:', error);
