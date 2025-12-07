@@ -5,7 +5,7 @@ import axios from "axios";
 const api = axios.create({
     baseURL: 'https://api.flowdira.com',
     headers: {
-        "x-api-key": 'myapi'
+        "x-key": process.env.my_api
     }
 })
 
