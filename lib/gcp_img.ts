@@ -2,7 +2,6 @@ import { Storage } from '@google-cloud/storage';
 
 const encodedKey = process.env.GCP_CREDENTIALS_BASE64;
 
-// Safety check: ensure the variable exists
 if (!encodedKey) {
   throw new Error('GCP_CREDENTIALS_BASE64 environment variable is missing');
 }
@@ -10,8 +9,8 @@ if (!encodedKey) {
 const credentials = JSON.parse(Buffer.from(encodedKey, 'base64').toString('utf-8'));
 
 const storage = new Storage({
-    projectId: credentials.project_id, // Good practice to include this explicitly
-    credentials: credentials // ✅ CORRECT: Use 'credentials', not 'keyFilename'
+    projectId: credentials.project_id, 
+    credentials: credentials
 });
 
 const bucketName = 'first_bucket_king';
