@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebar/sidebar";
 import { SiteHeader } from "@/components/header";
 import QueryProvider from "@/provider/queryProvider";
+import { ThemeProvider } from "@/provider/themeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,10 +28,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ThemeProvider
+         attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
         <QueryProvider>
         <SidebarProvider>
           <AppSidebar />
@@ -42,6 +49,7 @@ export default function RootLayout({
         </main>
         </SidebarProvider>
         </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

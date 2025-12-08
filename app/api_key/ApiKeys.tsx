@@ -68,7 +68,7 @@ export default function ApiKeyClient({ initialKeys }: { initialKeys: ApiItem[] }
         <div className="p-4 space-y-4">
             <Button onClick={handleClick} disabled={isLoading}>
                 <PlusCircle className="mr-2 h-4 w-4" />
-                {isLoading ? "Generating..." : "Generate Key"}
+                {isLoading ? "Generating..." : "Generate new key"}
             </Button>
             <Table>
                 <TableCaption>A list of your recent invoices.</TableCaption>
@@ -81,7 +81,7 @@ export default function ApiKeyClient({ initialKeys }: { initialKeys: ApiItem[] }
                 </TableHeader>
                 <TableBody>
                     {apiList.map((api, index) => (
-                        <TableRow key={index} className="p-2 border rounded bg-gray-50 font-mono text-sm">
+                        <TableRow key={index} className="p-2 border rounded font-mono text-sm">
                             <TableCell>{api.status ? 'Active' : 'Inactive'}</TableCell>
                             <TableCell className="flex items-center gap-2">
                                 <span className="flex-1">

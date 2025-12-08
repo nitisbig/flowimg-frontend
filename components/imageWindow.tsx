@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import EmptyHero from "./emptyHero";
 
 const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
     const byteCharacters = atob(base64Data);
@@ -106,7 +107,7 @@ export default function ImgWindow() {
                         </div>
                     </>
                 ) : (
-                    <p className="text-muted-foreground">No image generated yet</p>
+                    <EmptyHero />
                 )}
             </div>
         </div>
