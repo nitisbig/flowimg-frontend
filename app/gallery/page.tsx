@@ -5,24 +5,25 @@ import Image from "next/image"
 
 
 
+export default async function Gallery() {
+    const images = await getImages();
 
-export default async function Gallery(){
-    const images = await getImages()
-    console.log(images)
-    return(
-        <div className=" flex gap-1">
-            {
-                images.map((item, id)=>(
-                    <div key={id}>
-
-                        <Image src={item.url} 
-                        width={144}
-                        height={144}
+    return (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 p-4">
+            {images.map((item, id) => (
+                <div
+                    key={id}
+                    className="overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-all"
+                >
+                    <Image
+                        src={item.url}
+                        width={200}
+                        height={200}
                         alt="img"
-                        />
-                    </div>
-                ))
-            }
+                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                    />
+                </div>
+            ))}
         </div>
-    )
+    );
 }
