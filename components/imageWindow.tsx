@@ -1,9 +1,10 @@
 'use client'
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useIsMutating } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import EmptyHero from "./emptyHero";
+import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
 
 const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
     const byteCharacters = atob(base64Data);
@@ -16,8 +17,10 @@ const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
 }
 
 export default function ImgWindow() {
-
     const [isSaving, setIsSaving] = useState(false);
+    
+    // Track if any mutation is running
+    const isMutating = useIsMutating() > 0;
 
     const { data } = useQuery({
         queryKey: ['generated-image'],
@@ -34,7 +37,6 @@ export default function ImgWindow() {
         }
 
         try {
-
             const blob = base64ToBlob(data);
             const url = URL.createObjectURL(blob);
             setImageUrl(url);
@@ -63,9 +65,7 @@ export default function ImgWindow() {
 
         setIsSaving(true);
         try {
-
             const blob = base64ToBlob(data);
-
             const formData = new FormData();
             formData.append('file', blob, 'image.png');
             const response = await fetch('/api/upload', {
@@ -90,7 +90,16 @@ export default function ImgWindow() {
     return (
         <div className="flex-1">
             <div className="flex flex-col h-full items-center justify-center gap-4">
-                {imageUrl ? (
+                {isMutating ? (
+                    // Show skeleton while generating
+                    <div className="flex flex-col gap-4 items-center">
+                        <Skeleton className="w-[400px] h-[400px] rounded-[15px]" />
+                        <div className="flex gap-2">
+                            <Skeleton className="w-24 h-10" />
+                            <Skeleton className="w-32 h-10" />
+                        </div>
+                    </div>
+                ) : imageUrl ? (
                     <>
                         <img
                             style={{ width: '400px', borderRadius: '15px' }}
