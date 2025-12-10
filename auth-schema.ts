@@ -1,20 +1,5 @@
-
-import { integer, varchar,  } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
-
-
-export const apiKeyTable = pgTable("apis", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  api: varchar({ length: 255 }).notNull().unique(),
-  isActive: boolean("is_active").default(true),
-
-  userId: text("user_id")
-  .notNull()
-  .references(()=>user.id, {onDelete: 'cascade'})
-});
-
-
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
