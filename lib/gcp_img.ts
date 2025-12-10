@@ -21,7 +21,6 @@ export async function getImages() {
 
     const imageUrls = await Promise.all(
       files.map(async (file) => {
-        // Filter out the folder itself if it's returned as a file
         if (file.name.endsWith('/')) return null; 
 
         const [signedUrl] = await file.getSignedUrl({
@@ -36,7 +35,6 @@ export async function getImages() {
       })
     );
 
-    // Remove any null entries (from the folder filter above)
     return imageUrls.filter(img => img !== null);
 
   } catch (error) {

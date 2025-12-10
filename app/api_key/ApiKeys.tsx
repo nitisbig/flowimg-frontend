@@ -1,4 +1,4 @@
-// app/api-keys/ApiKeyClient.tsx (Client Component)
+
 'use client'
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Eye, EyeOff, Delete } from "lucide-react";
@@ -14,6 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge";
 
 interface ApiItem {
     api: string;
@@ -82,7 +83,12 @@ export default function ApiKeyClient({ initialKeys }: { initialKeys: ApiItem[] }
                 <TableBody>
                     {apiList.map((api, index) => (
                         <TableRow key={index} className="p-2 border rounded font-mono text-sm">
-                            <TableCell>{api.status ? 'Active' : 'Inactive'}</TableCell>
+                            <TableCell>
+                                <Badge variant={api.status ? "default" : "secondary"} className="gap-1.5">
+                                    <div className={`h-1.5 w-1.5 rounded-full ${api.status ? 'bg-green-500' : 'bg-gray-400'}`} />
+                                    {api.status ? 'Active' : 'Inactive'}
+                                </Badge>
+                            </TableCell>
                             <TableCell className="flex items-center gap-2">
                                 <span className="flex-1">
                                     {visibleKeys.has(api.api) ? api.api : maskApiKey(api.api)}
