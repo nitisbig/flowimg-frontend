@@ -1,8 +1,9 @@
-import { BarChart, Calendar, ChartArea, GalleryHorizontal, Home, Inbox, KeyIcon, Play, Search, Settings } from "lucide-react"
+import { BarChart, Calendar, ChartArea, GalleryHorizontal, Home, Inbox, KeyIcon, LogOut, Play, Search, Settings } from "lucide-react"
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -11,6 +12,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
+import Logout from "../logout"
 
 // Menu items.
 const items = [
@@ -64,6 +66,13 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarContent>
+              <Logout />
+
+          
+        </SidebarContent>
+      </SidebarFooter>
     </Sidebar>
   )
 }

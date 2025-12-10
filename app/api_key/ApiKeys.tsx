@@ -1,9 +1,9 @@
 // app/api-keys/ApiKeyClient.tsx (Client Component)
 'use client'
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Eye, EyeOff } from "lucide-react";
+import { PlusCircle, Eye, EyeOff, Delete } from "lucide-react";
 import { useState } from "react";
-import { generateAndStoreAPI } from "@/db/action";
+import { createApiKey } from "@/db/action";
 import { Copy, Check } from "lucide-react";
 import {
     Table,
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/table"
 
 interface ApiItem {
-    key: string;
+    api: string;
     status: boolean;
 }
 
@@ -29,9 +29,9 @@ export default function ApiKeyClient({ initialKeys }: { initialKeys: ApiItem[] }
     async function handleClick() {
         setIsLoading(true);
         try {
-            const newToken = await generateAndStoreAPI();
+            const newToken = await createApiKey();
             setApiList((prev) => [
-                { key: newToken, status: true },
+                { api: newToken, status: true },
                 ...prev
             ]);
         } catch (error) {
@@ -70,8 +70,8 @@ export default function ApiKeyClient({ initialKeys }: { initialKeys: ApiItem[] }
                 <PlusCircle className="mr-2 h-4 w-4" />
                 {isLoading ? "Generating..." : "Generate new key"}
             </Button>
+           
             <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead>Status</TableHead>
@@ -85,25 +85,25 @@ export default function ApiKeyClient({ initialKeys }: { initialKeys: ApiItem[] }
                             <TableCell>{api.status ? 'Active' : 'Inactive'}</TableCell>
                             <TableCell className="flex items-center gap-2">
                                 <span className="flex-1">
-                                    {visibleKeys.has(api.key) ? api.key : maskApiKey(api.key)}
+                                    {visibleKeys.has(api.api) ? api.api : maskApiKey(api.api)}
                                 </span>
                                 <Button 
-                                    onClick={() => toggleVisibility(api.key)} 
+                                    onClick={() => toggleVisibility(api.api)} 
                                     variant={'ghost'}
                                     size={'sm'}
                                 >
-                                    {visibleKeys.has(api.key) ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    {visibleKeys.has(api.api) ? <EyeOff size={16} /> : <Eye size={16} />}
                                 </Button>
                                 <Button 
-                                    onClick={() => copy(api.key)} 
+                                    onClick={() => copy(api.api)} 
                                     variant={'ghost'}
                                     size={'sm'}
                                 >
-                                    {copiedKey === api.key ? <Check size={16} /> : <Copy size={16} />}
+                                    {copiedKey === api.api ? <Check size={16} /> : <Copy size={16} />}
                                 </Button>
                             </TableCell>
                             <TableCell className="text-right">
-                                <Button variant={'destructive'} size={'sm'}>Revoke</Button>
+                                <Button variant={'destructive'} size={'sm'}><Delete /></Button>
                             </TableCell>
                         </TableRow>
                     ))}

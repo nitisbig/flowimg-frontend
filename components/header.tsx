@@ -20,8 +20,8 @@ export function SiteHeader() {
         <Button variant={'link'}><Link href={'https://github.com/nitisbig'}><Github /></Link></Button>
         <Button variant={'link'}><Link href={'https://www.linkedin.com/in/menitesh'}><LucideLinkedin /></Link></Button>
         <Button variant={'link'}><Link href={'docs'}>Docs</Link></Button>
-        <Button variant={'link'}>LogIn</Button>
-        <Button variant={'default'}>SignUp</Button>
+        <Button variant={'link'}><Link href={'login'}>LogIn</Link></Button>
+        <Button variant={'default'}><Link href={'signup'}>SignUp</Link></Button>
       </div>
     </div>
   )
