@@ -16,6 +16,7 @@ import { useTheme } from "next-themes"
 import Link from "next/link"
 import { authClient } from "@/lib/auth-client"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 export function SiteHeader() {
   const { setTheme } = useTheme()
@@ -49,10 +50,10 @@ export function SiteHeader() {
   }
 
   return (
-    <div className="flex justify-between">
-      <div>
+    <div className="flex justify-between items-center h-16 px-4">
+      <div className="flex items-center gap-1">
         <SidebarTrigger />
-        FlowImg
+        <Image src={'/logo.svg'} alt="logofdf" width={144} height={24} />
       </div>
       <div className="flex justify-center items-center gap-1">
         <Button 

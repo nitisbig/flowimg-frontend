@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import EmptyHero from "./emptyHero";
 import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
+import { ButtonGroup } from "./ui/button-group";
+import { Download, Save } from "lucide-react";
 
 const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
     const byteCharacters = atob(base64Data);
@@ -18,7 +20,7 @@ const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
 
 export default function ImgWindow() {
     const [isSaving, setIsSaving] = useState(false);
-    
+
     // Track if any mutation is running
     const isMutating = useIsMutating() > 0;
 
@@ -77,7 +79,7 @@ export default function ImgWindow() {
 
             const result = await response.json();
             console.log('Saved successfully:', result);
-            alert("Image saved to gallery!"); 
+            alert("Image saved to gallery!");
 
         } catch (error) {
             console.error('Error saving image:', error);
@@ -91,13 +93,8 @@ export default function ImgWindow() {
         <div className="flex-1">
             <div className="flex flex-col h-full items-center justify-center gap-4">
                 {isMutating ? (
-                    // Show skeleton while generating
                     <div className="flex flex-col gap-4 items-center">
                         <Skeleton className="w-[400px] h-[400px] rounded-[15px]" />
-                        <div className="flex gap-2">
-                            <Skeleton className="w-24 h-10" />
-                            <Skeleton className="w-32 h-10" />
-                        </div>
                     </div>
                 ) : imageUrl ? (
                     <>
@@ -106,14 +103,18 @@ export default function ImgWindow() {
                             src={imageUrl}
                             alt="Generated image"
                         />
-                        <div className="flex gap-2">
+
+                        <ButtonGroup>
+                            <Button onClick={handleSave} disabled={isSaving}>
+                                <Save /> {isSaving ? "Saving..." : "Save to Gallery"}
+                            </Button>
                             <Button variant="outline" onClick={handleDownload}>
+                                <Download />
                                 Download
                             </Button>
-                            <Button onClick={handleSave} disabled={isSaving}>
-                                {isSaving ? "Saving..." : "Save to Cloud"}
-                            </Button>
-                        </div>
+
+                        </ButtonGroup>
+
                     </>
                 ) : (
                     <EmptyHero />

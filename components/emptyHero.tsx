@@ -11,21 +11,15 @@ export default function EmptyHero() {
         </div>
       </div>
 
-
       <h1 className="text-3xl md:text-4xl font-normal mb-3 text-center tracking-tight text-foreground">
         Ready to create
       </h1>
-
 
       <p className="text-muted-foreground/70 text-base mb-20 text-center max-w-xs font-light">
         Type your prompt below to begin
       </p>
 
-
-      <div className="w-px h-8 bg-linear-to-b from-transparent via-border to-transparent mb-6"></div>
-
-
-      <div className=" flex text-xs text-muted-foreground/50 tracking-wide">
+      <div className=" flex justify-center items-center gap-1 text-xs text-muted-foreground/50 tracking-wide">
        <p>Powered by Nano Banana</p> <Banana fill='yellow' color='yellow' />
       </div>
     </div>
