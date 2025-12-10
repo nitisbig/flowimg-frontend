@@ -45,12 +45,12 @@ const items = [
   },
   {
     title: "Usages",
-    url: "#",
+    url: "usages",
     icon: ChartArea,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "settings",
     icon: Settings,
   },
 ]
