@@ -6,9 +6,9 @@ import { Check, Copy, Terminal, Globe, Server } from 'lucide-react';
 import {
   Card,
   CardContent,
-  CardDescription,
+
   CardHeader,
-  CardTitle,
+
 } from "@/components/ui/card";
 import {
   Tabs,
@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 
-// --- Data & Types ---
+
 
 const API_ENDPOINT = "https://api.flowdira.com/v1/img";
 
@@ -34,7 +34,7 @@ payload = {
     "size": "1024x1024"
 }
 headers = {
-    "x-key": "YOUR_API_KEY"
+    "x-api-key": "YOUR_API_KEY"
 }
 
 response = requests.post(url, json=payload, headers=headers)
@@ -43,7 +43,7 @@ print(response.json())`,
   nodejs: `const options = {
   method: 'POST',
   headers: {
-    'x-key': 'YOUR_API_KEY',
+    'x-api-key': 'YOUR_API_KEY',
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
@@ -59,7 +59,7 @@ fetch('${API_ENDPOINT}', options)
 
   curl: `curl --request POST \\
   --url ${API_ENDPOINT} \\
-  -H "x-key: $API_KEY" \\
+  -H "x-api-key: $API_KEY" \\
   --data '{
     "prompt": "futuristic city with neon lights",
     "size": "1024x1024"
@@ -74,7 +74,6 @@ const RESPONSE_EXAMPLE = `{
   }
 }`;
 
-// --- Helper Components ---
 
 const CodeBlock = ({ code, language }: { code: string; language: string }) => {
   const [copied, setCopied] = useState(false);
@@ -115,10 +114,10 @@ export default function ApiDocumentation() {
       
 
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight lg:text-4xl">
-          Image Generation API
+        <h1 className="text-3xl font-bold tracking-tight opacity:70 lg:text-4xl">
+          API Documentation
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl">
+        <p className="text-lg text-muted-foreground max-w-2xl">
           Generate high-quality visuals from text prompts programmatically.
         </p>
       </div>
@@ -134,21 +133,21 @@ export default function ApiDocumentation() {
 
       <div className="grid gap-8 md:grid-cols-2">
         
-        {/* Left Column: Documentation */}
+
         <div className="space-y-8">
           
-          {/* Authentication */}
+ 
           <section className="space-y-4">
             <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Authentication
             </h2>
             <Separator />
             <p className="text-muted-foreground">
-              Authenticate requests via the <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">x-key</code> header.
+              Authenticate requests via the <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">x-api-key</code> header.
             </p>
           </section>
 
-          {/* Parameters */}
+
           <section className="space-y-4">
             <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Parameters
@@ -179,7 +178,7 @@ export default function ApiDocumentation() {
             </div>
           </section>
 
-          {/* Response Fields */}
+       
           <section className="space-y-4">
             <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Response Object
@@ -202,10 +201,10 @@ export default function ApiDocumentation() {
           </section>
         </div>
 
-        {/* Right Column: Code Playground */}
+    
         <div className="space-y-8">
           
-          {/* Request Tabs */}
+      
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
               Request
@@ -231,7 +230,7 @@ export default function ApiDocumentation() {
             </Tabs>
           </div>
 
-          {/* Response Card */}
+
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
               Response

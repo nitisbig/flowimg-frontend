@@ -1,7 +1,7 @@
 
 'use client'
 import { Button } from "@/components/ui/button";
-import { PlusCircle, Eye, EyeOff, Delete } from "lucide-react";
+import { PlusCircle, Eye, EyeOff, Delete, File, Link2, LogIn } from "lucide-react";
 import { useState } from "react";
 import { createApiKey } from "@/db/action";
 import { Copy, Check } from "lucide-react";
@@ -15,6 +15,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 interface ApiItem {
     api: string;
@@ -67,11 +68,13 @@ export default function ApiKeyClient({ initialKeys }: { initialKeys: ApiItem[] }
 
     return (
         <div className="p-4 space-y-4">
-            <Button onClick={handleClick} disabled={isLoading}>
+            <div className=" flex justify-between">
+                            <Button onClick={handleClick} disabled={isLoading}>
                 <PlusCircle className="mr-2 h-4 w-4" />
                 {isLoading ? "Generating..." : "Generate new key"}
             </Button>
-           
+           <Button variant={'link'}><Link className="flex justify-center items-center" href={'docs'}>Docs<LogIn /> </Link></Button>
+            </div>
             <Table>
                 <TableHeader>
                     <TableRow>

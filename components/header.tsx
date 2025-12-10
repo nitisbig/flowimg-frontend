@@ -73,7 +73,7 @@ export function SiteHeader() {
           </Link>
         </Button>
         <Button variant={'link'}>
-          <Link href={'docs'}>Docs</Link>
+          <Link href={'docs'}>API Docs</Link>
         </Button>
         
         {!loading && (

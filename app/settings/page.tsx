@@ -1,10 +1,11 @@
+import UnderConstruction from "@/components/underConstruct";
 
 
 
 export default function Settings(){
     return(
         <div>
-            Coming soon...
+            <UnderConstruction />
         </div>
     )
 }
