@@ -101,9 +101,9 @@ export default function NotLoggedIn() {
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-center text-xs text-gray-500">
               Need help?{' '}
-              <a href="#" className="text-gray-900 hover:underline font-medium">
-                Contact support
-              </a>
+              <Link href="contact" className="text-gray-900 hover:underline font-medium">
+                Contact me
+              </Link>
             </p>
           </div>
         </div>
