@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Github, MoonIcon, LucideLinkedin, LogOut, User } from "lucide-react"
+import { Github, Moon, Linkedin, LogOut, User, Menu, MoonIcon, LucideLinkedin } from "lucide-react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
 import { authClient } from "@/lib/auth-client"
@@ -50,41 +50,92 @@ export function SiteHeader() {
   }
 
   return (
-    <div className="flex justify-between items-center h-16 px-4">
-      <div className="flex items-center gap-1">
+    <div className="flex justify-between items-center h-16 px-3 sm:px-4 md:px-6 lg:px-8">
+
+      <div className="flex items-center gap-1 sm:gap-2">
         <SidebarTrigger />
-        <Image src={'/logo.svg'} alt="logofdf" width={144} height={24} />
+        <Image 
+          src={'/logo.svg'} 
+          alt="logo" 
+          width={120} 
+          height={20} 
+          className="sm:w-36 sm:h-6"
+        />
       </div>
-      <div className="flex justify-center items-center gap-1">
+
+  
+      <div className="flex justify-center items-center gap-0.5 sm:gap-1">
+
         <Button 
           variant={'outline'} 
+          size="icon"
+          className="h-9 w-9 sm:h-10 sm:w-10"
           onClick={() => setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))}
         >
-          <MoonIcon />
+          <MoonIcon className="h-4 w-4" />
         </Button>
-        <Button variant={'link'}>
-          <Link href={'https://github.com/nitisbig'}>
-            <Github />
-          </Link>
-        </Button>
-        <Button variant={'link'}>
-          <Link href={'https://www.linkedin.com/in/menitesh'}>
-            <LucideLinkedin />
-          </Link>
-        </Button>
-        <Button variant={'link'}>
+
+
+        <div className="hidden md:flex items-center gap-1">
+          <Button variant={'link'} size="icon">
+            <Link href={'https://github.com/nitisbig'}>
+              <Github className="h-5 w-5" />
+            </Link>
+          </Button>
+          <Button variant={'link'} size="icon">
+            <Link href={'https://www.linkedin.com/in/menitesh'}>
+              <LucideLinkedin className="h-5 w-5" />
+            </Link>
+          </Button>
+          <Button variant={'link'} className="hidden lg:flex">
+            <Link href={'docs'}>API Docs</Link>
+          </Button>
+        </div>
+
+
+        <div className="md:hidden">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-9 w-9">
+                <Menu className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem asChild>
+                <Link href={'https://github.com/nitisbig'} className="cursor-pointer">
+                  <Github className="mr-2 h-4 w-4" />
+                  GitHub
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={'https://www.linkedin.com/in/menitesh'} className="cursor-pointer">
+                  <LucideLinkedin className="mr-2 h-4 w-4" />
+                  LinkedIn
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={'docs'} className="cursor-pointer">
+                  API Docs
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+    
+        <Button variant={'link'} className="hidden lg:flex">
           <Link href={'docs'}>API Docs</Link>
         </Button>
-        
+   
         {!loading && (
           <>
             {session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                    <Avatar className="h-10 w-10">
+                  <Button variant="ghost" className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-full">
+                    <Avatar className="h-9 w-9 sm:h-10 sm:w-10">
                       <AvatarImage src={session.user?.image} alt={session.user?.name || 'User'} />
-                      <AvatarFallback>
+                      <AvatarFallback className="text-xs sm:text-sm">
                         {session.user?.name ? getInitials(session.user.name) : 'U'}
                       </AvatarFallback>
                     </Avatar>
@@ -93,10 +144,10 @@ export function SiteHeader() {
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">
+                      <p className="text-sm font-medium leading-none truncate">
                         {session.user?.name || 'User'}
                       </p>
-                      <p className="text-xs leading-none text-muted-foreground">
+                      <p className="text-xs leading-none text-muted-foreground truncate">
                         {session.user?.email}
                       </p>
                     </div>
@@ -116,14 +167,14 @@ export function SiteHeader() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <>
-                <Button variant={'link'}>
-                  <Link href={'login'}>LogIn</Link>
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Button variant={'ghost'} size="sm" className="hidden sm:flex">
+                  <Link href={'login'}>Log In</Link>
                 </Button>
-                <Button variant={'default'}>
-                  <Link href={'signup'}>SignUp</Link>
+                <Button variant={'default'} size="sm" className="text-xs sm:text-sm">
+                  <Link href={'signup'}>Sign Up</Link>
                 </Button>
-              </>
+              </div>
             )}
           </>
         )}
