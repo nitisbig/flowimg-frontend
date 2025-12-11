@@ -45,7 +45,7 @@ export function LoginForm({
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/"
+        callbackURL: "/api_key"
       })
     } catch (error) {
       console.error("Google login error:", error)
