@@ -6,6 +6,7 @@ import { AppSidebar } from "@/components/sidebar/sidebar";
 import { SiteHeader } from "@/components/header";
 import QueryProvider from "@/provider/queryProvider";
 import { ThemeProvider } from "@/provider/themeProvider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,6 +50,7 @@ export default function RootLayout({
           
           <SiteHeader />
           {children}
+          <Toaster />
         </main>
         </SidebarProvider>
         </QueryProvider>

@@ -7,6 +7,7 @@ import EmptyHero from "./emptyHero";
 import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
 import { ButtonGroup } from "./ui/button-group";
 import { Download, Save } from "lucide-react";
+import { toast } from "sonner";
 
 const base64ToBlob = (base64Data: string, contentType = 'image/png') => {
     const byteCharacters = atob(base64Data);
@@ -79,11 +80,12 @@ export default function ImgWindow() {
 
             const result = await response.json();
             console.log('Saved successfully:', result);
-            alert("Image saved to gallery!");
+            
+            toast.success("Image saved to gallery!");
 
         } catch (error) {
             console.error('Error saving image:', error);
-            alert("Failed to save image.");
+            toast.error("Failed to save image.");
         } finally {
             setIsSaving(false);
         }
