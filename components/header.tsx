@@ -59,7 +59,7 @@ export function SiteHeader() {
           alt="logo" 
           width={120} 
           height={20} 
-          className="sm:w-36 sm:h-6"
+          className="sm:w-30 sm:h-8"
         />
       </div>
 
@@ -76,7 +76,7 @@ export function SiteHeader() {
         </Button>
 
 
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden sm:flex items-center gap-1">
           <Button variant={'link'} size="icon">
             <Link href={'https://github.com/nitisbig'}>
               <Github className="h-5 w-5" />
@@ -93,7 +93,7 @@ export function SiteHeader() {
         </div>
 
 
-        <div className="md:hidden">
+        <div className="sm:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="h-9 w-9">
@@ -123,9 +123,7 @@ export function SiteHeader() {
         </div>
 
     
-        <Button variant={'link'} className="hidden lg:flex">
-          <Link href={'docs'}>API Docs</Link>
-        </Button>
+
    
         {!loading && (
           <>
