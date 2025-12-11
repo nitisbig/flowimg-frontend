@@ -3,8 +3,6 @@
 import React from 'react';
 import { Mail, Phone, Send, Linkedin, MessageCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -18,17 +16,12 @@ export default function ContactPage() {
     linkedinLink: 'https://www.linkedin.com/in/menitesh', 
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Add your form submission logic here (e.g., Server Actions or API call)
-    console.log('Form submitted');
-  };
 
   return (
     <section className=" bg-background py-12 px-4 md:px-8 flex items-center justify-center">
       <div className="max-w-5xl w-full">
         
-        {/* Header Section */}
+
         <div className="mb-10 text-center space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Get in Touch
@@ -38,9 +31,8 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* Left Column: Contact Details */}
+        <div className=" flex justify-center">
+
           <div className="space-y-6">
             <Card className="h-full border-none shadow-none bg-transparent md:bg-card/50 md:border md:shadow-sm">
               <CardHeader>
@@ -50,8 +42,7 @@ export default function ContactPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                
-                {/* Email */}
+    
                 <div className="flex items-center space-x-4 p-3 rounded-md hover:bg-accent/50 transition-colors group">
                   <div className="bg-primary/10 p-3 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                     <Mail size={20} />
@@ -64,7 +55,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Phone */}
                 <div className="flex items-center space-x-4 p-3 rounded-md hover:bg-accent/50 transition-colors group">
                   <div className="bg-primary/10 p-3 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                     <Phone size={20} />
@@ -79,7 +69,7 @@ export default function ContactPage() {
 
                 <Separator className="my-4" />
 
-                {/* Social Actions */}
+
                 <div className="space-y-3">
                   <p className="text-sm font-medium text-muted-foreground px-3">Quick Connect</p>
                   <div className="flex flex-wrap gap-3 px-3">

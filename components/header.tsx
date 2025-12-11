@@ -90,6 +90,9 @@ export function SiteHeader() {
           <Button variant={'link'} className="hidden lg:flex">
             <Link href={'docs'}>API Docs</Link>
           </Button>
+          <Button variant={'link'} className="hidden lg:flex">
+            <Link href={'contact'}>Contact me</Link>
+          </Button>
         </div>
 
 
@@ -116,6 +119,11 @@ export function SiteHeader() {
               <DropdownMenuItem asChild>
                 <Link href={'docs'} className="cursor-pointer">
                   API Docs
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={'contact'} className="cursor-pointer">
+                  Contact me
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
