@@ -3,9 +3,10 @@
 import crypto from 'crypto'
 import { apiKeyTable } from "@/db/schema";
 import {db} from '@/db/connect'
-import { desc, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
+import { revalidatePath } from 'next/cache';
 
 
 
@@ -47,6 +48,7 @@ export async function getMyKeys() {
         .where(eq(apiKeyTable.userId, session.user.id));
     
     const formattedKeys = keys.map((k)=>({
+      id: k.id,
         api: k.api,
         status: Boolean(k.isActive)
     }))
@@ -74,4 +76,38 @@ export async function fetchAll() {
     catch (err) {
         return [];
     }
+}
+
+
+export async function revokeApiKey(apiKey: string) {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
+  
+  if (!session) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  try {
+  
+    const result = await db
+      .update(apiKeyTable)
+      .set({ isActive: false })
+      .where(
+        and(
+          eq(apiKeyTable.api, apiKey),
+          eq(apiKeyTable.userId, session.user.id)
+        )
+      )
+      .returning();
+
+    if (result.length === 0) {
+      return { success: false, error: "API key not found or unauthorized" };
+    }
+    revalidatePath("/api_key"); 
+    return { success: true, message: "API key revoked successfully" };
+  } catch (error) {
+    console.error("Error revoking API key:", error);
+    return { success: false, error: "Failed to revoke API key" };
+  }
 }
