@@ -6,6 +6,7 @@ import { AppSidebar } from "@/components/sidebar/sidebar";
 import { SiteHeader } from "@/components/header";
 import QueryProvider from "@/provider/queryProvider";
 import { ThemeProvider } from "@/provider/themeProvider";
+import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "sonner";
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         <ThemeProvider
          attribute="class"
             defaultTheme="system"
