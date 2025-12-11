@@ -50,16 +50,16 @@ export function SiteHeader() {
   }
 
   return (
-    <div className="flex justify-between items-center h-16 px-3 sm:px-4 md:px-6 lg:px-8">
+    <div className="flex justify-between items-center h-16 px-3">
 
-      <div className="flex items-center gap-1 sm:gap-2">
+      <div className="flex items-center gap-0.5">
         <SidebarTrigger />
         <Image 
           src={'/logo.svg'} 
           alt="logo" 
           width={120} 
           height={20} 
-          className="sm:w-30 sm:h-8"
+          className="sm:w-35 sm:h-10"
         />
       </div>
 
